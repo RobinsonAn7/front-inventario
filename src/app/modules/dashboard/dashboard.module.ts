@@ -4,6 +4,7 @@ import { DashboardComponent } from './pages/dashboard.component';
 import { HometComponent } from './components/homet/homet.component';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
+import { CategoriaModule } from '../categoria/categoria.module';
 
 
 
@@ -15,7 +16,8 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     CommonModule,
     RouterModule,
-    SharedModule
+    SharedModule,
+    CategoriaModule
   ]
 })
 export class DashboardModule { }
