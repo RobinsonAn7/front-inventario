@@ -8,7 +8,7 @@ const base_url = environment.base_url;
   providedIn: 'root',
 })
 export class CategoriaService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    * get all categories
@@ -30,17 +30,23 @@ export class CategoriaService {
   /**
    * update  categories
    */
-  updateCategoria(body:any, id: any){
+  updateCategoria(body: any, id: any) {
     const endpoint = `${base_url}/categorias/${id}`;
-    return this.http.put(endpoint,body)
+    return this.http.put(endpoint, body);
   }
 
-   /**
+  /**
    * delete  categories
    */
-    deleteCategoria(id: any){
-      const endpoint = `${base_url}/categorias/${id}`;
-      return this.http.delete(endpoint);
-    }
-
+  deleteCategoria(id: any) {
+    const endpoint = `${base_url}/categorias/${id}`;
+    return this.http.delete(endpoint);
+  }
+  /**
+   * get categorie by id
+   */
+  getCategoriaById(id: any) {
+    const endpoint = `${base_url}/categorias/${id}`;
+    return this.http.get(endpoint);
+  }
 }

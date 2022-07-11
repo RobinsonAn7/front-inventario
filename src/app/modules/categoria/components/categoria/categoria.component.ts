@@ -28,7 +28,7 @@ export class CategoriaComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'nombre', 'descripcion', 'actions'];
   dataSource = new MatTableDataSource<CategoriaElement>();
-// servicio get
+  // servicio get
   getCategoria() {
     this.categoriaService.getCategoria().subscribe(
       (data) => {
@@ -51,7 +51,7 @@ export class CategoriaComponent implements OnInit {
       this.dataSource = new MatTableDataSource<CategoriaElement>(dataCategoria);
     }
   }
-//metodo modulo de formulario agregar categoria
+  //metodo modulo de formulario agregar categoria
   openCategoryDialog() {
     const dialogRef = this.dialog.open(NewCategoriaComponent, {
       width: '450px',
@@ -66,7 +66,7 @@ export class CategoriaComponent implements OnInit {
       }
     });
   }
-// metodo editar
+  // metodo editar
   edit(id: number, nombre: string, descripcion: string) {
     const dialogRef = this.dialog.open(NewCategoriaComponent, {
       width: '450px',
@@ -83,9 +83,9 @@ export class CategoriaComponent implements OnInit {
     });
   }
   //funcion eliminar
-  deleteCategoria(id:any){
+  deleteCategoria(id: any) {
     const dialogRef = this.dialog.open(ConfirmComponent, {
-      data: { id: id }
+      data: { id: id },
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
@@ -95,6 +95,17 @@ export class CategoriaComponent implements OnInit {
       } else if (result == 2) {
         this.openSnackBar('Se produjo un error Eliminar', 'Error');
       }
+    });
+  }
+  //funcinon buscar categoria por id
+  buscar(termino: string) {
+    if (termino.length === 0) {
+      return this.getCategoria();
+    }
+
+    this.categoriaService.getCategoriaById(termino)
+            .subscribe((resp: any) => {
+                this.procesCategoria(resp);
     });
   }
 
@@ -109,6 +120,7 @@ export class CategoriaComponent implements OnInit {
   }
 }
 
+//clase inferface
 export interface CategoriaElement {
   descripcion: string;
   id: number;
