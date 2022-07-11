@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CategoriaService } from '../../../shared/services/categoria.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
@@ -9,6 +9,7 @@ import {
   SimpleSnackBar,
 } from '@angular/material/snack-bar';
 import { ConfirmComponent } from 'src/app/modules/shared/components/confirm/confirm.component';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-categoria',
@@ -28,6 +29,10 @@ export class CategoriaComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'nombre', 'descripcion', 'actions'];
   dataSource = new MatTableDataSource<CategoriaElement>();
+  
+  @ViewChild(MatPaginator)
+  paginator: MatPaginator;
+
   // servicio get
   getCategoria() {
     this.categoriaService.getCategoria().subscribe(
@@ -49,6 +54,7 @@ export class CategoriaComponent implements OnInit {
       });
 
       this.dataSource = new MatTableDataSource<CategoriaElement>(dataCategoria);
+      this.dataSource.paginator = this.paginator;
     }
   }
   //metodo modulo de formulario agregar categoria
