@@ -8,6 +8,7 @@ import {
   MatSnackBarRef,
   SimpleSnackBar,
 } from '@angular/material/snack-bar';
+import { ConfirmComponent } from 'src/app/modules/shared/components/confirm/confirm.component';
 
 @Component({
   selector: 'app-categoria',
@@ -27,7 +28,7 @@ export class CategoriaComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'nombre', 'descripcion', 'actions'];
   dataSource = new MatTableDataSource<CategoriaElement>();
-
+// servicio get
   getCategoria() {
     this.categoriaService.getCategoria().subscribe(
       (data) => {
@@ -81,6 +82,22 @@ export class CategoriaComponent implements OnInit {
       }
     });
   }
+  //funcion eliminar
+  deleteCategoria(id:any){
+    const dialogRef = this.dialog.open(ConfirmComponent, {
+      data: { id: id }
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result == 1) {
+        this.openSnackBar('categoria Eliminada', 'Exitosamente');
+        this.getCategoria();
+      } else if (result == 2) {
+        this.openSnackBar('Se produjo un error Eliminar', 'Error');
+      }
+    });
+  }
+
   //alerta
   openSnackBar(
     message: string,

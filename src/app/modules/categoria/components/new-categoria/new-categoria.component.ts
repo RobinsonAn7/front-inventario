@@ -12,7 +12,7 @@ import { CategoriaService } from '../../../shared/services/categoria.service';
 export class NewCategoriaComponent implements OnInit {
   public categoryForm: FormGroup;
   estadoForm: string = "";
-  
+
   constructor(
     private fb: FormBuilder,
     private servicio: CategoriaService,
@@ -65,11 +65,13 @@ export class NewCategoriaComponent implements OnInit {
 
 
   }
-
+  
+//funcion cerrar formulario modular
   onCancel() {
     this.dialogRef.close(3);
   }
 
+// actualizar formulario modular
   updateForm(data: any) {
     this.categoryForm = this.fb.group({
       nombre: [data.nombre, Validators.required],
