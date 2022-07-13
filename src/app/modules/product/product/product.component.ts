@@ -20,7 +20,7 @@ export class ProductComponent implements OnInit {
     private productoService: ProductoService,
     public dialog: MatDialog,
     private snackBar: MatSnackBar
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getProducto();
@@ -56,7 +56,7 @@ export class ProductComponent implements OnInit {
     if (resp.metadata[0].code == '00') {
       let listProduct = resp.producto.productos;
       listProduct.forEach((element: ProductoElemento) => {
-        element.categoria = element.categoria.nombre;
+        //element.categoria = element.categoria.nombre;
         element.picture = 'data:image/jpeg;base64,' + element.picture;
         dataProduct.push(element);
       });
@@ -87,6 +87,34 @@ export class ProductComponent implements OnInit {
   ): MatSnackBarRef<SimpleSnackBar> {
     return this.snackBar.open(message, action, {
       duration: 2000,
+    });
+  }
+
+  edit(
+    id: number,
+    nombre: string,
+    precio: number,
+    cantidad: number,
+    categoria: any
+  ) {
+    const dialogRef = this.dialog.open(NewProductComponent, {
+      width: '450px',
+      data: {
+        id: id,
+        nombre: nombre,
+        precio: precio,
+        cantidad: cantidad,
+        categoria: categoria
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result == 1) {
+        this.openSnackBar('producto editado', 'Exitosamente');
+        this.getProducto();
+      } else if (result == 2) {
+        this.openSnackBar('Se produjo un error al editar producto', 'Error');
+      }
     });
   }
 }
