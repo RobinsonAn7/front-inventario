@@ -46,5 +46,10 @@ export class ProductoService {
       return this.http.delete(endpoint);
     }
 
+    getProductByName(nombre:any){
+      const endpoint = `${base_url}/productos/filter/${nombre}`;
+      return this.http.get(endpoint);
+    }
+
 
 }

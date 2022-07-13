@@ -10,6 +10,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ProductoService } from '../../shared/services/producto.service';
 import { NewProductComponent } from '../new-product/new-product.component';
 import { ConfirmComponent } from '../../shared/components/confirm/confirm.component';
+import { logging } from 'protractor';
 
 @Component({
   selector: 'app-product',
@@ -134,6 +135,15 @@ export class ProductComponent implements OnInit {
         this.openSnackBar('Se produjo un error al eliminar producto', 'Error');
       }
     });
+  }
+  buscar(nombre:any){
+      if(nombre.length === 0){
+        return this.getProducto();
+      }
+
+      this.productoService.getProductByName(nombre).subscribe((resp:any)=>{
+        this.procesProducto(resp);
+      })
   }
 }
 
