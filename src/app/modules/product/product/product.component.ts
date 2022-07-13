@@ -9,6 +9,7 @@ import {
 import { MatTableDataSource } from '@angular/material/table';
 import { ProductoService } from '../../shared/services/producto.service';
 import { NewProductComponent } from '../new-product/new-product.component';
+import { ConfirmComponent } from '../../shared/components/confirm/confirm.component';
 
 @Component({
   selector: 'app-product',
@@ -114,6 +115,23 @@ export class ProductComponent implements OnInit {
         this.getProducto();
       } else if (result == 2) {
         this.openSnackBar('Se produjo un error al editar producto', 'Error');
+      }
+    });
+  }
+  delete(id:any){
+    const dialogRef = this.dialog.open(ConfirmComponent, {
+      width: '450px',
+      data: {
+        id: id, module: "producto"
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result == 1) {
+        this.openSnackBar('producto eliminado', 'Exitosamente');
+        this.getProducto();
+      } else if (result == 2) {
+        this.openSnackBar('Se produjo un error al eliminar producto', 'Error');
       }
     });
   }
