@@ -11,6 +11,7 @@ import { ProductoService } from '../../shared/services/producto.service';
 import { NewProductComponent } from '../new-product/new-product.component';
 import { ConfirmComponent } from '../../shared/components/confirm/confirm.component';
 import { logging } from 'protractor';
+import { UtilService } from '../../shared/services/util.service';
 
 @Component({
   selector: 'app-product',
@@ -18,14 +19,17 @@ import { logging } from 'protractor';
   styleUrls: ['./product.component.css'],
 })
 export class ProductComponent implements OnInit {
+  isAdim: any;
   constructor(
     private productoService: ProductoService,
     public dialog: MatDialog,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private util: UtilService
   ) {}
 
   ngOnInit(): void {
     this.getProducto();
+    this.isAdim=this.util.isAdmin();
   }
 
   displayedColumns: string[] = [
